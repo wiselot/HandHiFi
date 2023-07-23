@@ -1,9 +1,3 @@
-/*
- * SPDX-FileCopyrightText: 2010-2022 Espressif Systems (Shanghai) CO LTD
- *
- * SPDX-License-Identifier: CC0-1.0
- */
-
 #include <stdio.h>
 #include <inttypes.h>
 #include "sdkconfig.h"
@@ -12,10 +6,10 @@
 #include "esp_chip_info.h"
 #include "esp_flash.h"
 
+#include "init/functions.h"
+
 void app_main(void)
 {
-    printf("Hello world!\n");
-
     /* Print chip information */
     esp_chip_info_t chip_info;
     uint32_t flash_size;
@@ -40,13 +34,27 @@ void app_main(void)
            (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
 
     printf("Minimum free heap size: %" PRIu32 " bytes\n", esp_get_minimum_free_heap_size());
-    /*
-    for (int i = 10; i >= 0; i--) {
-        printf("Restarting in %d seconds...\n", i);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-    }
-    printf("Restarting now.\n");
-    fflush(stdout);
-    esp_restart();
-    */
+    
+    printf("\033[0;35mBoot infromation print down.Functions init...\n\033[0m");
+
+    uint8_t ssid[32] = "TP-LINK_ACF5";
+    uint8_t passwd[64] = "13967187659";
+
+    uint8_t ssid1[32] = "WISELOT-WIFI";
+    uint8_t passwd1[64] = "k7omain%";
+
+    uint8_t ssid2[32] = "WISELOT-WIFI";
+    uint8_t passwd2[64] = "k7omain%";
+
+    uint8_t ssid3[32] = "ERRRM";
+    uint8_t passwd3[64] = "12345678";
+    wifi_init();
+    //build_nvs_storage_wifi();
+    //wifi_connect(0,ssid,passwd);
+    //store_wifi(ssid,passwd);
+    //store_wifi(ssid1,passwd1);
+    //list_store_wifi();
+    //del_wifi(ssid1,passwd1,-1);
+    list_store_wifi();
+    wifi_connect(2,NULL,NULL);
 }
