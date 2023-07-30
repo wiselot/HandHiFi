@@ -31,11 +31,6 @@ static EventGroupHandle_t s_wifi_event_group;
 
 static const char *TAG = "wifi station";
 
-#define NO_ABORT_ERROR_CHECK(err,TAG,msg) ({ \
-    if(err!=ESP_OK){                        \
-        ESP_LOGE(TAG,msg);                  \
-        return 1;}                           \                                    
-})
 /* 存储空间名称 */
 #define WIFI_STORAGE_NAMESPACE  "spstorage"
 /* 最大存储wifi数 */

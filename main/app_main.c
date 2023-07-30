@@ -57,4 +57,6 @@ void app_main(void)
     //del_wifi(ssid1,passwd1,-1);
     list_store_wifi();
     wifi_connect(2,NULL,NULL);
+
+    oled_init(I2C_SSD1306_DEFAULT_SDA_IO,I2C_SSD1306_DEFAULT_SCL_IO,I2C_SSD1306_DEFAULT_FREQ,I2C_SSD1306_DEFAULT_POER);
 }
