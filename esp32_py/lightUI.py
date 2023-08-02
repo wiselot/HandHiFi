@@ -97,7 +97,7 @@ class lightUI:
                 self.oled.show()
             time.sleep_ms(100)
         return ret
-    def DialogInfo(self,text):
+    def DialogInfo(self,text,clock=60):
         '''
         带翻页的信息展示UI
         '''
@@ -113,6 +113,7 @@ class lightUI:
         self.oled.line(dialogex,dialogsy,dialogex,dialogey)
         self.oled.line(dialogsx,dialogey,dialogex,dialogey)
         #self.oled.rect(dialogsx,dialogsy,dialogex,dialogey)
+        self.oled.fill(0)
         self.oled.text("*Info*",max(dialogcwi - OLED_FONT_WIDTH * 6,0),dialogsy + 1,1)
         self.oled.line(dialogsx,dialogsy + OLED_FONT_HEIGT + 1,dialogex,dialogsy + OLED_FONT_HEIGT + 1)
         self.oled.show()
@@ -121,7 +122,14 @@ class lightUI:
         col_num = len(text) // line_size + 1
         turn = 1
         scoll = 0
-        while True:
+        ti = clock * 10
+        ti_s = len(str(clock)) + 1
+        while ti:
+            # Timer
+            self.oled.fill_rect(0,0,OLED_FONT_WIDTH * ti_s,OLED_FONT_HEIGT,0)
+            self.oled.text(str(ti//10) + "s" ,0,0,1)
+            self.oled.show()
+            ti -= 1
             # scoll
             self.key2_st = self.key2.value()
             if self.key2_st != 1:
@@ -143,4 +151,19 @@ class lightUI:
             time.sleep_ms(100)
         
         self.oled.show()
-    
+    def graphTimerWaitExit(self,x=0,y=0,key=1,delay=60):
+        ti = delay * 10
+        ti_s = len(str(delay)) + 1
+        while ti:
+            #key exit
+            if key:
+                self.key0_st = self.key0.value()
+                if self.key0_st != 1:
+                    if self.key0_st == 0:
+                        break
+            # Timer
+            self.oled.fill_rect(x,y,OLED_FONT_WIDTH * ti_s,OLED_FONT_HEIGT,0)
+            self.oled.text(str(ti//10) + "s" ,x,y,1)
+            self.oled.show()
+            ti -= 1
+            time.sleep_ms(100)
